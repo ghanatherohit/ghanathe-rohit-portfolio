@@ -102,11 +102,11 @@ export default function Contact() {
             className="space-y-8"
           >
             <h3 className="text-2xl font-bold">
-              Let's build something amazing together
+              Let&apos;s build something amazing together
             </h3>
             <p className="text-muted-foreground">
-              I'm currently available for freelance work or full-time positions.
-              If you have a project that needs some creative touch, I'd love to
+              I&apos;m currently available for freelance work or full-time positions.
+              If you have a project that needs some creative touch, I&apos;d love to
               hear about it.
             </p>
             <div className="space-y-6">

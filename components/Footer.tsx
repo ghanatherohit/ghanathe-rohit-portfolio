@@ -32,7 +32,7 @@ export default function Footer() {
             </Link>
 
             <p className="max-w-xs text-sm text-muted-foreground">
-              I am a passionate developer with a knack for creating beautiful and functional web applications. Let's connect and build something amazing together!
+              I am a passionate developer with a knack for creating beautiful and functional web applications. Let&apos;s connect and build something amazing together!
             </p>
 
             <div className="flex space-x-4">

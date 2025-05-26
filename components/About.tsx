@@ -67,25 +67,25 @@ export default function About() {
               </h3>
 
               <p className="text-muted-foreground text-balance">
-                I'm a creative full-stack developer with a passion for building
+                I&apos;m a creative full-stack developer with a passion for building
                 beautiful, functional, and user-centered digital experiences.
                 With 1+ years of experience in the field, I am always looking
-                for new and innovative ways to bring my clients' visions to
+                for new and innovative ways to bring my clients&apos; visions to
                 life.
               </p>
 
               <p className="text-muted-foreground">
                 I believe that design is about more than just making things look
-                pretty - it's about solving problems and creating intuitive,
-                enjoyable experiences for users. Whether I'm working on a
+                pretty - it&apos;s about solving problems and creating intuitive,
+                enjoyable experiences for users. Whether I&apos;m working on a
                 website, or other digital product, I bring my commitment to
                 design excellence and user-centered thinking to every project.
               </p>
 
               <p className="text-muted-foreground">
                 I am always looking for new challenges and opportunities to grow
-                as a developer. If you're interested in working together, please
-                don't hesitate to reach out!
+                as a developer. If you&apos;re interested in working together, please
+                don&apos;t hesitate to reach out!
               </p>
 
               <Link
