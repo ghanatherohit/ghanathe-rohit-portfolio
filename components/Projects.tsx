@@ -64,8 +64,8 @@ const projects = [
     image: "/Portfolio.png",
     category: ["UI/UX", "React.js+Next.js", "Frontend", "Web Design"],
     tags: ["React.js", "Next.js", "Tailwind CSS", "TypeScript"],
-    demoUrl: "https://rohit-portfolio.vercel.app",
-    codeUrl: "",
+    demoUrl: "https://ghanathe-rohit-portfolio.vercel.app",
+    codeUrl: "https://github.com/ghanatherohit/ghanathe-rohit-portfolio",
     featured: true,
   },
   {
