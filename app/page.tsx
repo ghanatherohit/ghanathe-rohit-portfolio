@@ -8,6 +8,7 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import MouseFollower from "@/components/ui/MouseFollower";
 import DarkModeIndicator from "@/components/ui/DarkModeIndicator";
+import Achievements from "@/components/Certifications";
 
 export default function Home() {
     return (
@@ -20,6 +21,7 @@ export default function Home() {
           <About />
           <Skills />
           <Projects />
+          <Achievements />
           <Contact />
         </main>
         <Footer />

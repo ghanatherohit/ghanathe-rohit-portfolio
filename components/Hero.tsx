@@ -41,6 +41,11 @@ export default function Hero() {
       className="relative flex flex-col items-center justify-center min-h-screen h-fit px-4"
     >
       <motion.div
+        // Initial motion styles for the hero section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        // Using transform styles based on scroll position
         style={{ y, opacity }}
         className="container max-w-4xl mx-auto text-center flex flex-col items-center justify-center"
       >

@@ -67,25 +67,26 @@ export default function About() {
               </h3>
 
               <p className="text-muted-foreground text-balance">
-                I&apos;m a creative full-stack developer with a passion for building
-                beautiful, functional, and user-centered digital experiences.
-                With 1+ years of experience in the field, I am always looking
-                for new and innovative ways to bring my clients&apos; visions to
-                life.
+                I&apos;m a creative full-stack developer with a passion for
+                building beautiful, functional, and user-centered digital
+                experiences. With 1+ years of experience in the field, I am
+                always looking for new and innovative ways to bring my
+                clients&apos; visions to life.
               </p>
 
               <p className="text-muted-foreground">
                 I believe that design is about more than just making things look
-                pretty - it&apos;s about solving problems and creating intuitive,
-                enjoyable experiences for users. Whether I&apos;m working on a
-                website, or other digital product, I bring my commitment to
-                design excellence and user-centered thinking to every project.
+                pretty - it&apos;s about solving problems and creating
+                intuitive, enjoyable experiences for users. Whether I&apos;m
+                working on a website, or other digital product, I bring my
+                commitment to design excellence and user-centered thinking to
+                every project.
               </p>
 
               <p className="text-muted-foreground">
                 I am always looking for new challenges and opportunities to grow
-                as a developer. If you&apos;re interested in working together, please
-                don&apos;t hesitate to reach out!
+                as a developer. If you&apos;re interested in working together,
+                please don&apos;t hesitate to reach out!
               </p>
 
               <Link
@@ -169,12 +170,10 @@ export default function About() {
         </div>
       </div>
       <div className="mt-20 p-30 md:p-16 bg-background/50 rounded-lg shadow-lg backdrop-blur-sm border border-primary/10">
-        <h3 className="text-4xl font-bold text-center mb-10 ">
-          Education
-        </h3>
+        <h3 className="text-4xl font-bold text-center mb-10 ">Education</h3>
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary/20"/>
+          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary/20" />
 
           {education.map((edu, index) => (
             <motion.div
@@ -212,7 +211,6 @@ export default function About() {
                 viewport={{ once: true }}
                 className="w-8 h-8 bg-primary/20 rounded-full animate-pulse flex items-center justify-center absolute md:left-[49%] left-[46%] transform -translate-x-1/2"
               >
-                
                 <div className="w-5 h-5 bg-primary rounded-full" />
               </motion.div>
             </motion.div>

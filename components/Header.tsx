@@ -13,6 +13,7 @@ const navItems = [
   { name: "About", href: "#about" },
   { name: "Skills", href: "#skills" },
   { name: "Projects", href: "#projects" },
+  { name: "Certifications", href: "#certifications" },
   { name: "Contact", href: "#contact" },
 ]
 
@@ -27,13 +28,18 @@ export default function Header() {
 
       // Determine active section based on scroll position
       const sections = document.querySelectorAll("section[id]")
-      const scrollPosition = window.scrollY + 100
+      // Get the current scroll position 
+      const scrollPosition = window.scrollY + window.innerHeight / 2
+      console.log("Scroll Position:", scrollPosition)
 
       sections.forEach((section) => {
+        // Check if the section is currently in view
         const sectionTop = (section as HTMLElement).offsetTop
+        // Calculate the height of the section
         const sectionHeight = section.clientHeight
         const sectionId = section.getAttribute("id") || ""
 
+        // If the scroll position is within the section's top and bottom, set it as active
         if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
           setActiveSection(sectionId)
         }
