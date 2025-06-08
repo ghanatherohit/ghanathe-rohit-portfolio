@@ -25,6 +25,18 @@ export const metadata: Metadata = {
     shortcut: '/favicon-32x32.png',
     apple: '/apple-touch-icon.png',
   },
+  openGraph: {
+    title: "Ghanathe Rohit",
+    description: "A showcase of my work as a full-stack developer",
+    images: [
+      {
+        url: '/preview.png',
+        width: 1200,
+        height: 630,
+        alt: 'Ghanathe Rohit Portfolio',
+      },
+    ],
+  },
 }
 
 export default function RootLayout({
