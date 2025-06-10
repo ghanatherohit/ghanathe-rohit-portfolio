@@ -133,7 +133,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4">
+              {/*<div className="flex items-center gap-4">
                 <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                   <Phone className="h-5 w-5 text-primary" />
                 </div>
@@ -143,7 +143,7 @@ export default function Contact() {
                   </h4>
                   <p className="text-base">+91 7xxxxxxxxx7</p>
                 </div>
-              </div>
+              </div>*/}
 
               <a
                 href="https://www.google.com/maps/place/Hyderabad,+Telangana/@17.385044,78.486671,10z/data=!3m1!4b1!4m6!3m5!1s0x3bcb935f8c8c8c8c:0x3bcb935f8c8c8c8c!8m2!3d17.385044!4d78.486671!16zL20vMDNnY2Zl"
