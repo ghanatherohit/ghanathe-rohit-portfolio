@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 // Project categories
 const categories = [
   "All",
-  "MERN Stack",
+  "Full Stack",
   "React.js+Vite",
   "React.js+Next.js",
 ];
