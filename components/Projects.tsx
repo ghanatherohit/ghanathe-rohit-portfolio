@@ -32,7 +32,7 @@ const projects = [
       "Frontend",
       "Backend",
       "Web Design",
-      "Full Stack ",
+      "Full Stack",
       "UI/UX",
     ],
     tags: [
