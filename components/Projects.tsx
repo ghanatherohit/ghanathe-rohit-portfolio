@@ -12,15 +12,9 @@ import { cn } from "@/lib/utils";
 // Project categories
 const categories = [
   "All",
-  "E-commerce",
-  "UI/UX",
-  "MERN",
+  "MERN Stack",
   "React.js+Vite",
   "React.js+Next.js",
-  "Full Stack",
-  "Frontend",
-  "Backend",
-  "Web Design",
 ];
 
 // Project data
@@ -38,7 +32,7 @@ const projects = [
       "Frontend",
       "Backend",
       "Web Design",
-      "Full Stack",
+      "Full Stack ",
       "UI/UX",
     ],
     tags: [
