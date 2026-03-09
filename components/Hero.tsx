@@ -7,21 +7,15 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 import Typing from "typewriter-effect";
 
 const TYPING_WORDS = [
-  "Web Developer",
-  "Full-Stack MERN Developer",
-  "Tech Enthusiast",
+  "Full Stack Web Developer",
+  "MERN Stack Developer",
+  "React.js Developer",
+  "Next.js Developer",
+  "Node.js Developer",
   "Frontend Developer",
   "Backend Developer",
-  "Software Engineer",
-  "Creative Coder",
-  "Tech Innovator",
+  "REST API Developer",
   "Problem Solver",
-  "Creative Solutions",
-  "UI/UX Designer",
-  "Digital Innovation",
-  "User-Centric Design",
-  "Responsive Design",
-  "Performance Optimization",
 ];
 
 export default function Hero() {

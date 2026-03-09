@@ -16,41 +16,26 @@ const SKILLS_DATA = {
   "Frontend Development": [
     { name: "HTML5", icon: fa.FaHtml5, color: "#E34F26" },
     { name: "CSS3", icon: fa.FaCss3Alt, color: "#1572B6" },
+    { name: "JavaScript", icon: si.SiJavascript, color: "#F7DF1E" },
+    { name: "Bootstrap", icon: si.SiBootstrap, color: "#7952B3" },
     { name: "Tailwind CSS", icon: si.SiTailwindcss, color: "#06B6D4" },
     { name: "React.js", icon: fa.FaReact, color: "#61DAFB" },
     { name: "Next.js", icon: si.SiNextdotjs, color: "#002222" },
-    { name: "JavaScript", icon: si.SiJavascript, color: "#F7DF1E" },
-    { name: "TypeScript", icon: si.SiTypescript, color: "#3178C6" },
-    { name: "Redux", icon: si.SiRedux, color: "#764ABC" },
   ],
   "Backend Development": [
     { name: "Node.js", icon: fa.FaNodeJs, color: "#339933" },
     { name: "Express.js", icon: si.SiExpress, color: "#999" },
+    { name: "MySQL", icon: si.SiMysql, color: "#4479A1" },
     { name: "MongoDB", icon: si.SiMongodb, color: "#47A248" },
     { name: "REST APIs", icon: tb.TbApi, color: "#FF5733" },
-    { name: "Firebase", icon: tb.TbApi, color: "#FFCA28" },
   ],
   "Programming Languages": [
     { name: "C++", icon: cg.CgCPlusPlus, color: "#00599C" },
-    { name: "C", icon: si.SiC, color: "#A8B9CC" },
-    { name: "Java", icon: fa.FaJava, color: "#007396" },
-    { name: "Python", icon: si.SiPython, color: "#3776AB" },
-    { name: "R", icon: si.SiR, color: "#276DC3" },
-  ],
-  "Data Science & AI/ML": [
-    { name: "Data Analysis", icon: md.MdOutlineDataExploration, color: "#4CAF50" },
-    { name: "Data Visualization", icon: md.MdOutlineDataExploration, color: "#2196F3" },
-    { name: "AI/ML", icon: ai.AiOutlineRobot, color: "#9C27B0" },
-  ],
-  "Design": [
-    { name: "Figma", icon: si.SiFigma, color: "#F24E1E" },
-    { name: "UI Design", icon: md.MdDesignServices, color: "#FF4081" },
-    { name: "UX Design", icon: md.MdDesignServices, color: "#7C4DFF" },
-    { name: "Responsive Design", icon: md.MdWebAsset, color: "#00BCD4" },
+    { name: "JavaScript", icon: si.SiJavascript, color: "#F7DF1E" },
   ],
   "Development Tools": [
-    { name: "Git/GitHub", icon: fa.FaGithub, color: "#888" },
-    { name: "Testing", icon: bi.BiTestTube, color: "#E91E63" },
+    { name: "Git", icon: fa.FaGitAlt, color: "#F05032" },
+    { name: "GitHub", icon: fa.FaGithub, color: "#888" },
   ],
 };
 

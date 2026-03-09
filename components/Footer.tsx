@@ -24,7 +24,7 @@ export default function Footer() {
           <div className="space-y-6">
             <Link href="#home" className="flex items-center">
               <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center">
-                <span className="text-lg font-bold text-primary">FS</span>
+                <span className="text-lg font-bold text-primary">GR</span>
               </div>
               <span className="ml-3 text-xl font-semibold tracking-tight">
                 <span className="text-primary">.</span>dev
@@ -32,7 +32,7 @@ export default function Footer() {
             </Link>
 
             <p className="max-w-xs text-sm text-muted-foreground">
-              I am a passionate developer with a knack for creating beautiful and functional web applications. Let&apos;s connect and build something amazing together!
+              Aspiring Full Stack Web Developer skilled in JavaScript, React.js, Node.js, MySQL, and MongoDB. Let&apos;s connect and build something amazing together!
             </p>
 
             <div className="flex space-x-4">
@@ -71,7 +71,7 @@ export default function Footer() {
             <div>
               <h3 className="text-sm font-semibold">Services</h3>
               <ul className="mt-4 space-y-2">
-                {["Web Development", "UI/UX Design", "E-commerce", "Consulting"].map((item) => (
+                {["Web Development", "E-commerce", "Consulting"].map((item) => (
                   <li key={item}>
                     <Link
                       href="#contact"

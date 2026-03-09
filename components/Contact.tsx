@@ -106,7 +106,8 @@ export default function Contact() {
             </h3>
             <p className="text-muted-foreground">
               I&apos;m currently available for freelance work or full-time positions.
-              If you have a project that needs some creative touch, I&apos;d love to
+              Skilled in JavaScript, React.js, Node.js, MySQL, and MongoDB &mdash;
+              if you have a project that needs a full-stack developer, I&apos;d love to
               hear about it.
             </p>
             <div className="space-y-6">

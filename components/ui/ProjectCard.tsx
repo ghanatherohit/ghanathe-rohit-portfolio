@@ -3,7 +3,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, Calendar } from "lucide-react";
+
+function isExternal(src: string) {
+  return src.startsWith("http://") || src.startsWith("https://");
+}
+
+function formatDate(dateStr?: string) {
+  if (!dateStr) return "";
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    month: "short",
+    year: "numeric",
+  });
+}
 
 interface ProjectCardProps {
   project: {
@@ -16,6 +28,7 @@ interface ProjectCardProps {
     demoUrl: string;
     codeUrl: string;
     featured: boolean;
+    pushedAt?: string;
   };
   index: number;
 }
@@ -23,73 +36,134 @@ interface ProjectCardProps {
 export default function ProjectCard({ project, index }: ProjectCardProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      layout
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20, scale: 0.95 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group relative overflow-hidden rounded-xl bg-background border border-border shadow-md dark:bg-background/50"
+      transition={{ duration: 0.5, delay: index * 0.08 }}
+      className="group relative flex flex-col overflow-hidden rounded-2xl bg-card border border-border/60 shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all duration-500 hover:border-primary/30"
     >
-      <div className="relative aspect-video overflow-hidden">
-        <Image
-          src={project.image || "/placeholder.svg"}
-          alt={project.title}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent opacity-0 transition-opacity" />
+      {/* Image */}
+      <div className="relative aspect-[16/9] overflow-hidden bg-muted">
+        {isExternal(project.image) ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={project.image}
+            alt={project.title}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          />
+        ) : (
+          <Image
+            src={project.image || "/placeholder.svg"}
+            alt={project.title}
+            fill
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          />
+        )}
 
+        {/* Hover overlay with quick links */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex items-end justify-center pb-4 gap-3">
+          {project.demoUrl && (
+            <Link
+              href={project.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 bg-white text-black text-xs font-semibold px-4 py-2 rounded-full hover:bg-primary hover:text-white transition-colors duration-200 shadow-lg"
+            >
+              <ExternalLink className="h-3.5 w-3.5" />
+              Live Demo
+            </Link>
+          )}
+          <Link
+            href={project.codeUrl || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 bg-white/90 text-black text-xs font-semibold px-4 py-2 rounded-full hover:bg-primary hover:text-white transition-colors duration-200 shadow-lg"
+            onClick={(e) => {
+              if (!project.codeUrl) {
+                e.preventDefault();
+              }
+            }}
+          >
+            <Github className="h-3.5 w-3.5" />
+            Source Code
+          </Link>
+        </div>
+
+        {/* Featured badge */}
         {project.featured && (
-          <div className="absolute top-2 right-2 bg-primary text-white text-xs font-semibold px-2 py-1 rounded-full">
+          <div className="absolute top-3 left-3 bg-primary/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-md">
             Featured
           </div>
         )}
       </div>
 
-      <div className="p-6">
-        <div className="flex flex-wrap gap-2 mb-3">
-          {project.tags.map((tag) => (
+      {/* Content */}
+      <div className="flex flex-col flex-1 p-5 gap-3">
+        {/* Title + date row */}
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="text-lg font-bold leading-tight group-hover:text-primary transition-colors duration-300">
+            {project.title}
+          </h3>
+          {project.pushedAt && (
+            <span className="flex items-center gap-1 text-[11px] text-muted-foreground whitespace-nowrap mt-0.5">
+              <Calendar className="h-3 w-3" />
+              {formatDate(project.pushedAt)}
+            </span>
+          )}
+        </div>
+
+        {/* Description — clamped to 2 lines */}
+        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
+          {project.description}
+        </p>
+
+        {/* Tags */}
+        <div className="flex flex-wrap gap-1.5 mt-auto pt-2">
+          {project.tags.slice(0, 5).map((tag) => (
             <span
               key={tag}
-              className="inline-flex items-center px-2 py-1 text-xs font-medium text-muted-foreground bg-primary/10 rounded-full border border-primary/20 transition-colors duration-200"
+              className="px-2.5 py-0.5 text-[11px] font-medium rounded-full bg-primary/8 text-primary border border-primary/15 dark:bg-primary/15 dark:border-primary/25"
             >
               {tag}
             </span>
           ))}
+          {project.tags.length > 5 && (
+            <span className="px-2 py-0.5 text-[11px] text-muted-foreground">
+              +{project.tags.length - 5}
+            </span>
+          )}
         </div>
 
-        <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-        <p className="text-muted-foreground mb-4">{project.description}</p>
-
-        <div className="flex gap-4">
+        {/* Bottom action row */}
+        <div className="flex items-center gap-3 pt-3 border-t border-border/50 mt-1">
+          {project.demoUrl ? (
+            <Link
+              href={project.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-sm font-medium text-primary hover:underline underline-offset-2"
+            >
+              <ExternalLink className="h-3.5 w-3.5" />
+              Live Demo
+            </Link>
+          ) : (
+            <span className="text-xs text-muted-foreground/60 italic">
+              No live demo
+            </span>
+          )}
+          <span className="h-3.5 w-px bg-border/60" />
           <Link
-            href={project.demoUrl}
+            href={project.codeUrl || "#"}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center text-white hover:bg-primary/80 bg-primary px-4 py-2 rounded-md transition-colors"
+            className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             onClick={(e) => {
-              if (!project.demoUrl) {
-                e.preventDefault();
-                alert("This project is in development. Please check back later.");
-              }
+              if (!project.codeUrl) e.preventDefault();
             }}
           >
-            <ExternalLink className="mr-2 h-4 w-4" />
-            <p className="text-sm">Live Demo</p>
-          </Link>
-
-          <Link
-            href={project.codeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center hover:bg-secondary/80 bg-secondary px-4 py-2 rounded-md transition-colors"
-            onClick={(e) => {
-              if (!project.codeUrl) {
-                e.preventDefault();
-                alert("Code link is not available.");
-              }
-            }}
-          >
-            <Github className="mr-2 h-4 w-4" />
+            <Github className="h-3.5 w-3.5" />
             View Code
           </Link>
         </div>

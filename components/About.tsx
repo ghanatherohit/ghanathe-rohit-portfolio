@@ -10,14 +10,14 @@ import Link from "next/link";
 const education = [
   {
     level: "Undergraduate",
-    school: "CMR Engineering College",
-    year: "2022 - 2026",
-    degree: "B.Tech in Computer Science and Engineering",
+    school: "CMR Engineering College, Hyderabad",
+    year: "2022 – 2026 (Present)",
+    degree: "B.Tech in Computer Science and Engineering (Data Science)",
   },
   {
     level: "Intermediate",
     school: "Sri Chaitanya Junior College",
-    year: "2020 - 2022",
+    year: "2020 – 2022",
     degree: "Intermediate Education (Mathematics, Physics, Chemistry)",
   },
   {
@@ -40,9 +40,9 @@ export default function About() {
 
   const stats = [
     { label: "Projects Completed", value: "10+" },
-    { label: "Programming Languages", value: "6+" },
-    { label: "Certifications", value: "5+" },
-    { label: "Technologies", value: "20+" },
+    { label: "Coding Competitions Won", value: "2" },
+    { label: "Certifications", value: "3+" },
+    { label: "Technologies", value: "15+" },
   ];
 
   return (
@@ -63,30 +63,32 @@ export default function About() {
               className="space-y-6"
             >
               <h3 className="text-2xl font-bold">
-                Passionate Full-Stack Developer & Tech Enthusiast
+                Aspiring Full Stack Web Developer
               </h3>
 
               <p className="text-muted-foreground text-balance">
-                I&apos;m a creative full-stack developer with a passion for
-                building beautiful, functional, and user-centered digital
-                experiences. With 1+ years of experience in the field, I am
-                always looking for new and innovative ways to bring my
-                clients&apos; visions to life.
+                I&apos;m an aspiring Full Stack Web Developer skilled in
+                JavaScript, React.js, Node.js, MySQL, and MongoDB.
+                Experienced in building responsive web applications and
+                REST APIs. Passionate about developing efficient and
+                user-friendly web solutions.
               </p>
 
               <p className="text-muted-foreground">
-                I believe that design is about more than just making things look
-                pretty - it&apos;s about solving problems and creating
-                intuitive, enjoyable experiences for users. Whether I&apos;m
-                working on a website, or other digital product, I bring my
-                commitment to design excellence and user-centered thinking to
-                every project.
+                I believe that great development is about more than just
+                writing code &mdash; it&apos;s about solving real problems and
+                creating intuitive, enjoyable experiences for users.
+                Whether it&apos;s a full-stack web app, an e-commerce
+                platform, or a fitness application, I bring my commitment
+                to clean code and user-centered thinking to every project.
               </p>
 
               <p className="text-muted-foreground">
-                I am always looking for new challenges and opportunities to grow
-                as a developer. If you&apos;re interested in working together,
-                please don&apos;t hesitate to reach out!
+                I&apos;ve secured 1st and 2nd place in inter-college coding
+                competitions, organized technical events attended by 100+
+                students, and represented my college in inter-college
+                football tournaments &mdash; demonstrating teamwork and
+                leadership both on and off the field.
               </p>
 
               <Link

@@ -1,4 +1,3 @@
-
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -10,9 +9,46 @@ import MouseFollower from "@/components/ui/MouseFollower";
 import DarkModeIndicator from "@/components/ui/DarkModeIndicator";
 import Achievements from "@/components/Certifications";
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Ghanathe Rohit",
+  alternateName: ["Rohit Ghanathe", "ghanathe rohit"],
+  url: "https://ghanathe-rohit-portfolio.vercel.app",
+  image: "https://ghanathe-rohit-portfolio.vercel.app/preview.png",
+  jobTitle: "Full-Stack Web Developer",
+  description:
+    "Aspiring Full Stack Web Developer skilled in JavaScript, React.js, Next.js, Node.js, MySQL, and MongoDB. Experienced in building responsive web applications and REST APIs.",
+  sameAs: [
+    "https://github.com/ghanatherohit",
+    "https://www.linkedin.com/in/ghanatherohit",
+  ],
+  knowsAbout: [
+    "JavaScript",
+    "React.js",
+    "Next.js",
+    "Node.js",
+    "Express.js",
+    "MySQL",
+    "MongoDB",
+    "C++",
+    "HTML",
+    "CSS",
+    "Bootstrap",
+    "Tailwind CSS",
+    "Git",
+    "GitHub",
+    "REST APIs",
+  ],
+};
+
 export default function Home() {
     return (
       <div className="relative bg-gradient-to-b from-background to-background/90 overflow-hidden dark:from-background dark:to-background/95 cursor-none">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <Header />
         <MouseFollower />
         <DarkModeIndicator />
