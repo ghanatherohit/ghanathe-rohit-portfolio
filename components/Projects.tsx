@@ -45,20 +45,38 @@ function getRepoImage(repoName: string): string {
 function inferCategories(repo: {
   topics?: string[];
   language?: string | null;
+  name?: string;
+  description?: string | null;
 }): string[] {
   const cats: string[] = [];
   const topics = (repo.topics || []).map((t) => t.toLowerCase());
-  const lang = (repo.language || "").toLowerCase();
+  const name = (repo.name || "").toLowerCase();
+  const desc = (repo.description || "").toLowerCase();
+  const all = [...topics, name, desc].join(" ");
 
   const isReact =
     topics.includes("react") ||
     topics.includes("reactjs") ||
-    lang === "typescript" ||
-    lang === "javascript";
+    topics.includes("react-js") ||
+    all.includes("react");
 
-  if (isReact) {
-    if (topics.includes("nextjs") || topics.includes("next")) {
+  const isNext =
+    topics.includes("nextjs") ||
+    topics.includes("next") ||
+    topics.includes("next-js") ||
+    all.includes("next.js") ||
+    all.includes("nextjs");
+
+  const isVite =
+    topics.includes("vite") ||
+    topics.includes("vitejs") ||
+    all.includes("vite");
+
+  if (isReact || isNext) {
+    if (isNext) {
       cats.push("React.js+Next.js");
+    } else if (isVite) {
+      cats.push("React.js+Vite");
     } else {
       cats.push("React.js+Vite");
     }
@@ -67,6 +85,11 @@ function inferCategories(repo: {
   if (
     topics.includes("fullstack") ||
     topics.includes("full-stack") ||
+    topics.includes("mern") ||
+    topics.includes("mern-stack") ||
+    all.includes("full stack") ||
+    all.includes("fullstack") ||
+    all.includes("mern") ||
     (topics.includes("frontend") && topics.includes("backend"))
   ) {
     cats.push("Full Stack");
@@ -105,14 +128,46 @@ export default function Projects() {
         if (!res.ok) return;
         const repos: GitHubRepo[] = await res.json();
 
-        const allProjects: Project[] = repos
+        const nonForked = repos
           .filter((repo) => !repo.fork)
           .sort(
             (a, b) =>
               new Date(b.pushed_at).getTime() -
               new Date(a.pushed_at).getTime()
-          )
-          .map((repo, index) => ({
+          );
+
+        // Fetch all languages for each repo in parallel
+        const languagesMap = await Promise.all(
+          nonForked.map(async (repo) => {
+            try {
+              const langRes = await fetch(
+                `https://api.github.com/repos/${GITHUB_USERNAME}/${repo.name}/languages`
+              );
+              if (langRes.ok) {
+                const langs: Record<string, number> = await langRes.json();
+                return Object.keys(langs);
+              }
+            } catch {
+              // ignore
+            }
+            return repo.language ? [repo.language] : [];
+          })
+        );
+
+        const allProjects: Project[] = nonForked.map((repo, index) => {
+          const repoLanguages = languagesMap[index];
+          // Combine topics and languages, deduplicated
+          const topicSet = new Set(
+            (repo.topics || []).map((t) => t.toLowerCase())
+          );
+          const allTags = [...(repo.topics || [])];
+          for (const lang of repoLanguages) {
+            if (!topicSet.has(lang.toLowerCase())) {
+              allTags.push(lang);
+            }
+          }
+
+          return {
             id: index + 1,
             title: repo.name
               .replace(/[-_]/g, " ")
@@ -121,14 +176,13 @@ export default function Projects() {
               repo.description || "A project built by Rohit Ghanathe.",
             image: getRepoImage(repo.name),
             category: inferCategories(repo),
-            tags: repo.topics?.length
-              ? repo.topics
-              : ([repo.language].filter(Boolean) as string[]),
+            tags: allTags.length ? allTags : (repo.language ? [repo.language] : []),
             demoUrl: repo.homepage || "",
             codeUrl: repo.html_url,
             featured: repo.stargazers_count > 0,
             pushedAt: repo.pushed_at,
-          }));
+          };
+        });
 
         setProjects(allProjects);
       } catch {

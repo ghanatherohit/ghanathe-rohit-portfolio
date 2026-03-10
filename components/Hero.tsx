@@ -124,7 +124,7 @@ export default function Hero() {
           </Link>
           <Link
             href="#contact"
-            className="bg-transparent text-black border border-black hover:bg-primary/10 px-4 py-2 rounded-md transition-color dark:text-white dark:border-white dark:hover:bg-primary/10"
+            className="justify-center items-center bg-transparent text-black border border-black hover:bg-primary/10 px-4 py-3 rounded-md transition-color dark:text-white dark:border-white dark:hover:bg-primary/10"
           >
             Contact Me
           </Link>

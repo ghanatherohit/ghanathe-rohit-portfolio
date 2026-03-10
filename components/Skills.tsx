@@ -31,6 +31,8 @@ const SKILLS_DATA = {
   ],
   "Programming Languages": [
     { name: "C++", icon: cg.CgCPlusPlus, color: "#00599C" },
+    { name: "Python", icon: si.SiPython, color: "#3776AB" },
+    { name: "Java", icon: fa.FaJava, color: "#007396" },
     { name: "JavaScript", icon: si.SiJavascript, color: "#F7DF1E" },
   ],
   "Development Tools": [

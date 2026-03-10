@@ -47,7 +47,6 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
       {/* Image */}
       <div className="relative aspect-[16/9] overflow-hidden bg-muted">
         {isExternal(project.image) ? (
-          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={project.image}
             alt={project.title}
@@ -121,7 +120,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 
         {/* Tags */}
         <div className="flex flex-wrap gap-1.5 mt-auto pt-2">
-          {project.tags.slice(0, 5).map((tag) => (
+          {project.tags.map((tag) => (
             <span
               key={tag}
               className="px-2.5 py-0.5 text-[11px] font-medium rounded-full bg-primary/8 text-primary border border-primary/15 dark:bg-primary/15 dark:border-primary/25"
@@ -129,11 +128,6 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
               {tag}
             </span>
           ))}
-          {project.tags.length > 5 && (
-            <span className="px-2 py-0.5 text-[11px] text-muted-foreground">
-              +{project.tags.length - 5}
-            </span>
-          )}
         </div>
 
         {/* Bottom action row */}
