@@ -5,9 +5,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Send, Check } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Check, X, AlertCircle } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Link from "next/link";
 import { Github, Linkedin, Instagram } from "lucide-react";
@@ -33,7 +33,6 @@ const schema = z.object({
     .nonempty({ message: "Message is required" })
     .min(10, { message: "Message must be at least 10 characters long" })
     .max(500, { message: "Message must be less than 500 characters" })
-    .regex(/^[a-zA-Z\s]+$/, { message: "Invalid name" })
 });
 
 export default function Contact() {
@@ -52,6 +51,8 @@ export default function Contact() {
   ];
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   const ref = useRef<HTMLElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -64,6 +65,7 @@ export default function Contact() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: zodResolver(schema),
     mode: "onBlur",
@@ -203,18 +205,34 @@ export default function Contact() {
                 className="space-y-6"
                 onSubmit={handleSubmit(async (data) => {
                   setIsSubmitting(true);
+                  setSubmitError(null);
                   try {
-                    // Simulate form submission
-                    await new Promise((resolve) => setTimeout(resolve, 2000));
-                    console.log("Form Data:", data);
-                    setIsSubmitted(true);
-                  } catch (error) {
-                    console.error("Form submission error:", error);
+                    const response = await fetch("https://api.web3forms.com/submit", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+                        name: data.name,
+                        email: data.email,
+                        subject: data.subject,
+                        message: data.message,
+                        from_name: "Portfolio Contact Form",
+                      }),
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                      setIsSubmitted(true);
+                      setShowPopup(true);
+                      reset();
+                    } else {
+                      setSubmitError("Failed to send message. Please try again.");
+                    }
+                  } catch {
+                    setSubmitError("Something went wrong. Please try again later.");
                   } finally {
                     setIsSubmitting(false);
                     setTimeout(() => {
                       setIsSubmitted(false);
-                      formRef.current?.reset();
                     }, 3000);
                   }
                 })}
@@ -344,10 +362,68 @@ export default function Contact() {
                   </div>
                 </button>
               </form>
+              {submitError && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center gap-2 mt-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-sm"
+                >
+                  <AlertCircle className="h-4 w-4 flex-shrink-0" />
+                  {submitError}
+                </motion.div>
+              )}
             </div>
           </motion.div>
         </div>
       </motion.div>
+
+      {/* Success Popup Overlay */}
+      <AnimatePresence>
+        {showPopup && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+            onClick={() => setShowPopup(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.8, y: 20 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="relative bg-background rounded-2xl shadow-2xl border border-border p-8 mx-4 max-w-sm w-full text-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setShowPopup(false)}
+                className="absolute top-3 right-3 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <X className="h-5 w-5" />
+              </button>
+              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-green-500/10">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", delay: 0.2 }}
+                >
+                  <Check className="h-8 w-8 text-green-500" />
+                </motion.div>
+              </div>
+              <h3 className="text-xl font-bold mb-2">Message Sent!</h3>
+              <p className="text-muted-foreground text-sm">
+                Thank you for reaching out. I&apos;ll get back to you as soon as possible.
+              </p>
+              <button
+                onClick={() => setShowPopup(false)}
+                className="mt-6 px-6 py-2 bg-primary text-white rounded-full text-sm font-medium hover:bg-primary/80 transition-colors"
+              >
+                Got it
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
