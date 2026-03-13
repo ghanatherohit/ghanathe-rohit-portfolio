@@ -30,7 +30,7 @@ export default function Header() {
       const sections = document.querySelectorAll("section[id]")
       // Get the current scroll position 
       const scrollPosition = window.scrollY + window.innerHeight / 2
-      console.log("Scroll Position:", scrollPosition)
+      
 
       sections.forEach((section) => {
         // Check if the section is currently in view
