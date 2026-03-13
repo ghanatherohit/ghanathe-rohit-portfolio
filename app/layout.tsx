@@ -7,10 +7,20 @@ import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const SITE_URL = "https://ghanathe-rohit-portfolio.vercel.app";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
+  "https://ghanathe-rohit-portfolio.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  applicationName: "Ghanathe Rohit Portfolio",
+  referrer: "origin-when-cross-origin",
+  category: "technology",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   title: {
     default: "Ghanathe Rohit | Full-Stack Web Developer Portfolio",
     template: "%s | Ghanathe Rohit",
@@ -40,7 +50,7 @@ export const metadata: Metadata = {
   creator: "Ghanathe Rohit",
   publisher: "Ghanathe Rohit",
   alternates: {
-    canonical: SITE_URL,
+    canonical: "/",
   },
   robots: {
     index: true,
@@ -69,7 +79,7 @@ export const metadata: Metadata = {
       "Ghanathe Rohit — Aspiring Full Stack Web Developer skilled in JavaScript, React.js, Next.js, Node.js, MySQL, and MongoDB. Experienced in building responsive web applications and REST APIs.",
     images: [
       {
-        url: "/preview.png",
+        url: `${SITE_URL}/preview.png`,
         width: 1920,
         height: 1080,
         alt: "Ghanathe Rohit — Full-Stack Developer Portfolio",
@@ -81,12 +91,12 @@ export const metadata: Metadata = {
     title: "Ghanathe Rohit | Full-Stack Developer Portfolio",
     description:
       "Aspiring Full Stack Web Developer skilled in JavaScript, React.js, Next.js, Node.js, MySQL, and MongoDB.",
-    images: ["/preview.png"],
+    images: [`${SITE_URL}/preview.png`],
+    site: "@ghanatherohit",
     creator: "@ghanatherohit",
   },
   verification: {
-    // Add your Google Search Console verification code here after registering:
-    // google: "your-verification-code",
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
   },
 };
 

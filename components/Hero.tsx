@@ -49,12 +49,12 @@ export default function Hero() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="mb-4"
         >
-          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2">
+          <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2">
             Hi, I'm{" "}
             <span className="text-primary text-3xl md:text-4xl lg:text-6xl font-bold tracking-tight">
               Ghanathe Rohit
             </span>
-          </h2>
+          </h1>
         </motion.div>
 
         <motion.div
@@ -66,7 +66,7 @@ export default function Hero() {
           Available for new projects
         </motion.div>
 
-        <motion.h1
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -79,7 +79,7 @@ export default function Hero() {
               <span className="text-primary">Experiences</span> That Matter
             </div>
           </div>
-        </motion.h1>
+        </motion.h2>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
