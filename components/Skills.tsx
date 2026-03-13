@@ -8,9 +8,6 @@ import * as fa from "react-icons/fa"
 import * as si from 'react-icons/si'
 import * as tb from 'react-icons/tb'
 import * as cg from 'react-icons/cg'
-import * as md from 'react-icons/md'
-import * as ai from 'react-icons/ai'
-import * as bi from 'react-icons/bi'
 
 const SKILLS_DATA = {
   "Frontend Development": [

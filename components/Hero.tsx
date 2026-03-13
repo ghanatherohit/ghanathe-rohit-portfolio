@@ -50,7 +50,7 @@ export default function Hero() {
           className="mb-4"
         >
           <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2">
-            Hi, I'm{" "}
+            Hi, I&apos;m{" "}
             <span className="text-primary text-3xl md:text-4xl lg:text-6xl font-bold tracking-tight">
               Ghanathe Rohit
             </span>

@@ -7,7 +7,7 @@ import { z } from "zod";
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Send, Check, X, AlertCircle } from "lucide-react";
+import { Mail, MapPin, Send, Check, X, AlertCircle } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Link from "next/link";
 import { Github, Linkedin, Instagram } from "lucide-react";

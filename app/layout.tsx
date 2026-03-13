@@ -11,6 +11,11 @@ const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
   "https://ghanathe-rohit-portfolio.vercel.app";
 
+const GOOGLE_SITE_VERIFICATION =
+  process.env.GOOGLE_SITE_VERIFICATION ||
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ||
+  "";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   applicationName: "Ghanathe Rohit Portfolio",
@@ -96,7 +101,7 @@ export const metadata: Metadata = {
     creator: "@ghanatherohit",
   },
   verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+    google: GOOGLE_SITE_VERIFICATION || undefined,
   },
 };
 
@@ -107,6 +112,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {GOOGLE_SITE_VERIFICATION ? (
+          <meta
+            name="google-site-verification"
+            content={GOOGLE_SITE_VERIFICATION}
+          />
+        ) : null}
+      </head>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"

@@ -98,76 +98,39 @@ function inferCategories(repo: {
   return cats;
 }
 
-interface GitHubRepo {
-  fork: boolean;
-  html_url: string;
-  name: string;
-  description: string | null;
-  homepage: string | null;
-  topics: string[];
-  language: string | null;
-  stargazers_count: number;
-  pushed_at: string;
-}
-
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [rateLimited, setRateLimited] = useState(false);
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     async function fetchGitHubRepos() {
       try {
-        const res = await fetch(
-          `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`,
-          {
-            headers: { Accept: "application/vnd.github.mercy-preview+json" },
-          }
-        );
+        const res = await fetch("/api/github");
+        if (res.status === 429) {
+          setRateLimited(true);
+          return;
+        }
         if (!res.ok) return;
-        const repos: GitHubRepo[] = await res.json();
 
-        const nonForked = repos
-          .filter((repo) => !repo.fork)
-          .sort(
-            (a, b) =>
-              new Date(b.pushed_at).getTime() -
-              new Date(a.pushed_at).getTime()
-          );
+        const data: {
+          projects: {
+            name: string;
+            description: string | null;
+            homepage: string | null;
+            html_url: string;
+            topics: string[];
+            language: string | null;
+            tags: string[];
+            stargazers_count: number;
+            pushed_at: string;
+          }[];
+        } = await res.json();
 
-        // Fetch all languages for each repo in parallel
-        const languagesMap = await Promise.all(
-          nonForked.map(async (repo) => {
-            try {
-              const langRes = await fetch(
-                `https://api.github.com/repos/${GITHUB_USERNAME}/${repo.name}/languages`
-              );
-              if (langRes.ok) {
-                const langs: Record<string, number> = await langRes.json();
-                return Object.keys(langs);
-              }
-            } catch {
-              // ignore
-            }
-            return repo.language ? [repo.language] : [];
-          })
-        );
-
-        const allProjects: Project[] = nonForked.map((repo, index) => {
-          const repoLanguages = languagesMap[index];
-          // Combine topics and languages, deduplicated
-          const topicSet = new Set(
-            (repo.topics || []).map((t) => t.toLowerCase())
-          );
-          const allTags = [...(repo.topics || [])];
-          for (const lang of repoLanguages) {
-            if (!topicSet.has(lang.toLowerCase())) {
-              allTags.push(lang);
-            }
-          }
-
-          return {
+        const allProjects: Project[] = (data.projects || []).map(
+          (repo, index) => ({
             id: index + 1,
             title: repo.name
               .replace(/[-_]/g, " ")
@@ -176,17 +139,17 @@ export default function Projects() {
               repo.description || "A project built by Rohit Ghanathe.",
             image: getRepoImage(repo.name),
             category: inferCategories(repo),
-            tags: allTags.length ? allTags : (repo.language ? [repo.language] : []),
+            tags: repo.tags,
             demoUrl: repo.homepage || "",
             codeUrl: repo.html_url,
             featured: repo.stargazers_count > 0,
             pushedAt: repo.pushed_at,
-          };
-        });
+          })
+        );
 
         setProjects(allProjects);
       } catch {
-        // Nothing to show on error
+        // Network error — show empty state
       } finally {
         setLoading(false);
       }
@@ -280,6 +243,26 @@ export default function Projects() {
               Loading projects from GitHub...
             </p>
           </div>
+        ) : rateLimited ? (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="flex flex-col items-center justify-center py-20 gap-3"
+          >
+            <Folder className="h-12 w-12 text-muted-foreground/40" />
+            <p className="text-muted-foreground font-medium">
+              GitHub API rate limit reached
+            </p>
+            <a
+              href={`https://github.com/${GITHUB_USERNAME}?tab=repositories`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-primary hover:underline flex items-center gap-1"
+            >
+              View repositories on GitHub
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+          </motion.div>
         ) : filteredProjects.length === 0 ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
