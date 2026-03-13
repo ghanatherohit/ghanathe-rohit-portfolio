@@ -55,6 +55,9 @@ export default function Hero() {
               Ghanathe Rohit
             </span>
           </h1>
+          <p className="text-base md:text-lg text-muted-foreground mt-2">
+            Full Stack Web Developer Portfolio
+          </p>
         </motion.div>
 
         <motion.div

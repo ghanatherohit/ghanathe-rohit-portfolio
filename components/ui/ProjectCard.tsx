@@ -47,15 +47,17 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
       {/* Image */}
       <div className="relative aspect-[16/9] overflow-hidden bg-muted">
         {isExternal(project.image) ? (
-          <img
+          <Image
             src={project.image}
-            alt={project.title}
+            alt={`${project.title} project by Ghanathe Rohit`}
+            fill
+            unoptimized
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
         ) : (
           <Image
             src={project.image || "/placeholder.svg"}
-            alt={project.title}
+            alt={`${project.title} project by Ghanathe Rohit`}
             fill
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />

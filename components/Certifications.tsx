@@ -5,6 +5,7 @@ import SectionHeading from "./ui/SectionHeading";
 import { motion } from "framer-motion";
 import { ExternalLink, Award } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const certifications = [
   {
@@ -54,9 +55,11 @@ export default function Certifications() {
             >
               {/* Certificate image */}
               <div className="relative overflow-hidden bg-muted">
-                <img
+                <Image
                   src={cert.img}
-                  alt={cert.title}
+                  alt={`${cert.title} certification earned by Ghanathe Rohit`}
+                  width={800}
+                  height={600}
                   className="w-full aspect-[4/3] object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
 

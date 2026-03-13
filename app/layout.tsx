@@ -16,6 +16,10 @@ const GOOGLE_SITE_VERIFICATION =
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ||
   "";
 
+const IS_PRODUCTION =
+  process.env.VERCEL_ENV === "production" ||
+  (!process.env.VERCEL_ENV && process.env.NODE_ENV === "production");
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   applicationName: "Ghanathe Rohit Portfolio",
@@ -58,11 +62,11 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   robots: {
-    index: true,
-    follow: true,
+    index: IS_PRODUCTION,
+    follow: IS_PRODUCTION,
     googleBot: {
-      index: true,
-      follow: true,
+      index: IS_PRODUCTION,
+      follow: IS_PRODUCTION,
       "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
