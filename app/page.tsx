@@ -1,17 +1,20 @@
+import { SITE_URL } from "@/lib/config";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import Now from "@/components/Now";
 import About from "@/components/About";
+import Education from "@/components/Education";
 import Skills from "@/components/Skills";
+import Experience from "@/components/Experience";
+import CodingProfiles from "@/components/CodingProfiles";
 import Projects from "@/components/Projects";
+import OpenSourceContributions from "@/components/OpenSourceContributions";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import MouseFollower from "@/components/ui/MouseFollower";
 import DarkModeIndicator from "@/components/ui/DarkModeIndicator";
+import Terminal from "@/components/ui/Terminal";
 import Achievements from "@/components/Certifications";
-
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-  "https://ghanathe-rohit-portfolio.vercel.app";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -67,24 +70,30 @@ const jsonLd = {
 };
 
 export default function Home() {
-    return (
-      <div className="relative bg-gradient-to-b from-background to-background/90 overflow-hidden dark:from-background dark:to-background/95 cursor-none">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        <Header />
-        <MouseFollower />
-        <DarkModeIndicator />
-        <main className="min-h-screen max-w-screen-2xl mx-auto px-5 py-6 font-primary">
-          <Hero />
-          <About />
-          <Skills />
-          <Projects />
-          <Achievements />
-          <Contact />
-        </main>
-        <Footer />
-      </div>
-    );
+  return (
+    <div className="relative bg-gradient-to-b from-background to-background/90 overflow-hidden dark:from-background dark:to-background/95 cursor-none">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <Header />
+      <MouseFollower />
+      <DarkModeIndicator />
+      <Terminal />
+      <main className="min-h-screen max-w-screen-2xl mx-auto px-5 py-6 font-primary">
+        <Hero />
+        <Now />
+        <About />
+        <Education />
+        <Experience />
+        <Skills />
+        <CodingProfiles />
+        <Projects />
+        <OpenSourceContributions />
+        <Achievements />
+        <Contact />
+      </main>
+      <Footer />
+    </div>
+  );
 }
