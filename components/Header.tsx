@@ -7,11 +7,15 @@ import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import ThemeSwitcher from "./ui/ThemeSwitcher"
 import ScrollProgress from "./ui/ScrollProgress"
+import CommandPalette from "./ui/CommandPalette"
 
 const navItems = [
   { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
+  { name: "Education", href: "#education" },
+  { name: "Experience", href: "#experience" },
   { name: "Skills", href: "#skills" },
+  { name: "Coding Profiles", href: "#coding-profiles" },
   { name: "Projects", href: "#projects" },
   { name: "Certifications", href: "#certifications" },
   { name: "Contact", href: "#contact" },
@@ -23,31 +27,37 @@ export default function Header() {
   const [activeSection, setActiveSection] = useState("home")
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
 
       // Determine active section based on scroll position
       const sections = document.querySelectorAll("section[id]")
-      // Get the current scroll position 
       const scrollPosition = window.scrollY + window.innerHeight / 2
-      
 
       sections.forEach((section) => {
-        // Check if the section is currently in view
         const sectionTop = (section as HTMLElement).offsetTop
-        // Calculate the height of the section
         const sectionHeight = section.clientHeight
         const sectionId = section.getAttribute("id") || ""
 
-        // If the scroll position is within the section's top and bottom, set it as active
         if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
           setActiveSection(sectionId)
         }
       })
+
+      ticking = false;
     }
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(handleScroll);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
   return (
@@ -87,8 +97,8 @@ export default function Header() {
             </Link>
           </motion.div>
 
-          <div className="hidden md:flex items-center space-x-1">
-            <ul className="flex space-x-1">
+          <div className="hidden xl:flex items-center gap-1 min-w-0">
+            <ul className="flex items-center">
               {navItems.map((item, index) => (
                 <motion.li
                   key={item.name}
@@ -99,7 +109,7 @@ export default function Header() {
                   <Link
                     href={item.href}
                     className={cn(
-                      "relative px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                      "relative px-2.5 py-2 text-sm font-medium rounded-md whitespace-nowrap transition-colors",
                       activeSection === item.href.substring(1)
                         ? "text-primary"
                         : "text-foreground/80 hover:text-primary",
@@ -120,12 +130,13 @@ export default function Header() {
               ))}
             </ul>
 
-            <div className="ml-4">
+            <div className="ml-3 flex items-center gap-3 flex-shrink-0">
+              <CommandPalette />
               <ThemeSwitcher />
             </div>
           </div>
 
-          <div className="flex md:hidden items-center space-x-4">
+          <div className="flex xl:hidden items-center space-x-4">
             <ThemeSwitcher />
             <button
               type="button"
@@ -146,19 +157,19 @@ export default function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm md:hidden"
+            className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm xl:hidden"
           >
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="sticky inset-y-0 right-0 z-50 w-full overflow-y-auto bg-background px-6 py-6 sm:max-w-sm"
+              className="sticky inset-y-0 right-0 z-50 w-full overflow-y-auto bg-background px-6 py-6"
             >
               <div className="flex items-center justify-between">
                 <Link href="#home" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
                   <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center">
-                    <span className="text-lg font-bold text-primary">FS</span>
+                    <span className="text-lg font-bold text-primary">GR</span>
                   </div>
                   <span className="ml-3 text-xl font-semibold tracking-tight">
                     <span className="text-primary">.</span>dev

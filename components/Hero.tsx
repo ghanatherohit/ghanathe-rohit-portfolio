@@ -1,10 +1,13 @@
 "use client";
 
 import { useRef } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
-import Typing from "typewriter-effect";
+
+// Dynamically imported — defers the typewriter-effect bundle until after hydration
+const Typing = dynamic(() => import("typewriter-effect"), { ssr: false });
 
 const TYPING_WORDS = [
   "Full Stack Web Developer",
@@ -35,11 +38,9 @@ export default function Hero() {
       className="relative flex flex-col items-center justify-center min-h-screen h-fit px-4"
     >
       <motion.div
-        // Initial motion styles for the hero section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        // Using transform styles based on scroll position
         style={{ y, opacity }}
         className="container max-w-4xl mx-auto text-center flex flex-col items-center justify-center"
       >
@@ -110,24 +111,16 @@ export default function Hero() {
         >
           <Link
             href="#projects"
-            className="flex items-center hover:bg-primary/80 bg-primary px-4 py-2 rounded-md transition-color text-white"
+            className="flex items-center hover:bg-primary/80 bg-primary px-4 py-2 rounded-md transition-colors text-white"
           >
             View My Work
-            <motion.div
-              animate={{ x: [0, 8, 0] }}
-              transition={{
-                repeat: Infinity,
-                duration: 1.5,
-                ease: "easeInOut",
-              }}
-              className="flex items-center justify-between bg-primary/10 rounded-full p-2 ml-2"
-            >
+            <span className="flex items-center justify-between bg-primary/10 rounded-full p-2 ml-2 animate-bounce-x">
               <ArrowRight className="h-5 w-5" />
-            </motion.div>
+            </span>
           </Link>
           <Link
             href="#contact"
-            className="justify-center items-center bg-transparent text-black border border-black hover:bg-primary/10 px-4 py-3 rounded-md transition-color dark:text-white dark:border-white dark:hover:bg-primary/10"
+            className="justify-center items-center bg-transparent text-black border border-black hover:bg-primary/10 px-4 py-3 rounded-md transition-colors dark:text-white dark:border-white dark:hover:bg-primary/10"
           >
             Contact Me
           </Link>
@@ -145,16 +138,7 @@ export default function Hero() {
           className="flex flex-col items-center text-sm text-foreground/60 hover:text-primary transition-colors"
         >
           <span className="mb-2">Scroll Down</span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{
-              repeat: Infinity,
-              duration: 1.5,
-              ease: "easeInOut",
-            }}
-          >
-            <ChevronDown className="h-6 w-6" />
-          </motion.div>
+          <ChevronDown className="h-6 w-6 animate-bounce" />
         </Link>
       </motion.div>
     </section>

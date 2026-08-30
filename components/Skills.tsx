@@ -4,37 +4,37 @@ import { motion } from "framer-motion";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { cn } from "@/lib/utils";
 import { SkillCard } from "./ui/SkillCard";
-import * as fa from "react-icons/fa"
-import * as si from 'react-icons/si'
-import * as tb from 'react-icons/tb'
-import * as cg from 'react-icons/cg'
+// Named imports only — avoids bundling entire icon packs
+import { FaHtml5, FaCss3Alt, FaReact, FaNodeJs, FaGitAlt, FaGithub, FaJava } from "react-icons/fa";
+import { SiJavascript, SiBootstrap, SiTailwindcss, SiNextdotjs, SiExpress, SiMysql, SiMongodb, SiPython } from "react-icons/si";
+import { TbApi } from "react-icons/tb";
+import { CgCPlusPlus } from "react-icons/cg";
 
 const SKILLS_DATA = {
   "Frontend Development": [
-    { name: "HTML5", icon: fa.FaHtml5, color: "#E34F26" },
-    { name: "CSS3", icon: fa.FaCss3Alt, color: "#1572B6" },
-    { name: "JavaScript", icon: si.SiJavascript, color: "#F7DF1E" },
-    { name: "Bootstrap", icon: si.SiBootstrap, color: "#7952B3" },
-    { name: "Tailwind CSS", icon: si.SiTailwindcss, color: "#06B6D4" },
-    { name: "React.js", icon: fa.FaReact, color: "#61DAFB" },
-    { name: "Next.js", icon: si.SiNextdotjs, color: "#002222" },
+    { name: "HTML5", icon: FaHtml5, color: "#E34F26" },
+    { name: "CSS3", icon: FaCss3Alt, color: "#1572B6" },
+    { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
+    { name: "Bootstrap", icon: SiBootstrap, color: "#7952B3" },
+    { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+    { name: "React.js", icon: FaReact, color: "#61DAFB" },
+    { name: "Next.js", icon: SiNextdotjs, color: "#002222" },
   ],
   "Backend Development": [
-    { name: "Node.js", icon: fa.FaNodeJs, color: "#339933" },
-    { name: "Express.js", icon: si.SiExpress, color: "#999" },
-    { name: "MySQL", icon: si.SiMysql, color: "#4479A1" },
-    { name: "MongoDB", icon: si.SiMongodb, color: "#47A248" },
-    { name: "REST APIs", icon: tb.TbApi, color: "#FF5733" },
+    { name: "Node.js", icon: FaNodeJs, color: "#339933" },
+    { name: "Express.js", icon: SiExpress, color: "#999" },
+    { name: "MySQL", icon: SiMysql, color: "#4479A1" },
+    { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
+    { name: "REST APIs", icon: TbApi, color: "#FF5733" },
   ],
   "Programming Languages": [
-    { name: "C++", icon: cg.CgCPlusPlus, color: "#00599C" },
-    { name: "Python", icon: si.SiPython, color: "#3776AB" },
-    { name: "Java", icon: fa.FaJava, color: "#007396" },
-    { name: "JavaScript", icon: si.SiJavascript, color: "#F7DF1E" },
+    { name: "C++", icon: CgCPlusPlus, color: "#00599C" },
+    { name: "Python", icon: SiPython, color: "#3776AB" },
+    { name: "Java", icon: FaJava, color: "#007396" },
   ],
   "Development Tools": [
-    { name: "Git", icon: fa.FaGitAlt, color: "#F05032" },
-    { name: "GitHub", icon: fa.FaGithub, color: "#888" },
+    { name: "Git", icon: FaGitAlt, color: "#F05032" },
+    { name: "GitHub", icon: FaGithub, color: "#888" },
   ],
 };
 

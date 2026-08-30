@@ -1,13 +1,10 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-    "https://ghanathe-rohit-portfolio.vercel.app";
-
   return [
     {
-      url: siteUrl,
+      url: SITE_URL,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,

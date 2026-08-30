@@ -1,8 +1,8 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { SITE_URL } from "@/lib/config";
 
-const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
-const targetHost = configuredSiteUrl ? new URL(configuredSiteUrl).host : "";
+const targetHost = SITE_URL ? new URL(SITE_URL).host : "";
 const isProduction = process.env.VERCEL_ENV === "production";
 
 export function middleware(request: NextRequest) {

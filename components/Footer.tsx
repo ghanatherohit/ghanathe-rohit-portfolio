@@ -3,19 +3,17 @@
 import Link from "next/link"
 import { Github, Linkedin, Instagram, ArrowUp } from "lucide-react"
 
+// Defined outside component to avoid recreation on every render
+const socialLinks = [
+  { name: "GitHub", icon: Github, href: "https://github.com/ghanatherohit" },
+  { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/in/ghanatherohit" },
+  { name: "Instagram", icon: Instagram, href: "https://www.instagram.com/therohitghanathe" },
+]
+
 export default function Footer() {
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    })
+    window.scrollTo({ top: 0, behavior: "smooth" })
   }
- 
-  const socialLinks = [
-    { name: "GitHub", icon: Github, href: "https://github.com/ghanatherohit" },
-    { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/in/ghanatherohit" },
-    { name: "Instagram", icon: Instagram, href: "https://www.instagram.com/therohitghanathe" },
-  ]
 
   return (
     <footer className="bg-background border-t border-border dark:bg-background/90">
@@ -55,7 +53,7 @@ export default function Footer() {
             <div>
               <h3 className="text-sm font-semibold">Navigation</h3>
               <ul className="mt-4 space-y-2">
-                {["Home", "About", "Skills", "Projects", "Contact"].map((item) => (
+                {["Home", "About", "Experience", "Skills", "Projects", "Certifications", "Contact"].map((item) => (
                   <li key={item}>
                     <Link
                       href={`#${item.toLowerCase()}`}

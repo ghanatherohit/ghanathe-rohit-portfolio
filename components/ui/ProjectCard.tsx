@@ -1,9 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ExternalLink, Github, Calendar } from "lucide-react";
+import { ExternalLink, Github, Calendar, FileSearch } from "lucide-react";
+import { getCaseStudy } from "@/lib/case-studies";
+import CaseStudyModal from "@/components/ui/CaseStudyModal";
 
 function isExternal(src: string) {
   return src.startsWith("http://") || src.startsWith("https://");
@@ -20,6 +23,7 @@ function formatDate(dateStr?: string) {
 interface ProjectCardProps {
   project: {
     id: number;
+    repoName?: string;
     title: string;
     description: string;
     image: string;
@@ -34,6 +38,9 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, index }: ProjectCardProps) {
+  const [caseStudyOpen, setCaseStudyOpen] = useState(false);
+  const caseStudy = project.repoName ? getCaseStudy(project.repoName) : undefined;
+
   return (
     <motion.div
       layout
@@ -51,7 +58,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             src={project.image}
             alt={`${project.title} project by Ghanathe Rohit`}
             fill
-            unoptimized
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
         ) : (
@@ -59,6 +66,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             src={project.image || "/placeholder.svg"}
             alt={`${project.title} project by Ghanathe Rohit`}
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
         )}
@@ -162,8 +170,32 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             <Github className="h-3.5 w-3.5" />
             View Code
           </Link>
+          {caseStudy && (
+            <>
+              <span className="h-3.5 w-px bg-border/60" />
+              <button
+                type="button"
+                onClick={() => setCaseStudyOpen(true)}
+                className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+              >
+                <FileSearch className="h-3.5 w-3.5" />
+                Case Study
+              </button>
+            </>
+          )}
         </div>
       </div>
+
+      {caseStudy && (
+        <CaseStudyModal
+          open={caseStudyOpen}
+          onClose={() => setCaseStudyOpen(false)}
+          title={project.title}
+          caseStudy={caseStudy}
+          demoUrl={project.demoUrl}
+          codeUrl={project.codeUrl}
+        />
+      )}
     </motion.div>
   );
 }

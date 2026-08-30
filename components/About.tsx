@@ -1,52 +1,21 @@
 "use client";
 
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
 import { FileText } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Link from "next/link";
 
-const education = [
-  {
-    level: "Undergraduate",
-    school: "CMR Engineering College, Hyderabad",
-    year: "2022 – 2026 (Present)",
-    degree: "B.Tech in Computer Science and Engineering (Data Science)",
-  },
-  {
-    level: "Intermediate",
-    school: "Sri Chaitanya Junior College",
-    year: "2020 – 2022",
-    degree: "Intermediate Education (Mathematics, Physics, Chemistry)",
-  },
-  {
-    level: "Secondary School",
-    school: "Kotwal's School",
-    year: "2020",
-    degree: "Secondary School Certificate",
-  },
+const stats = [
+  { label: "Projects Completed", value: "10+" },
+  { label: "Coding Competitions Won", value: "2" },
+  { label: "Certifications", value: "3+" },
+  { label: "Technologies", value: "15+" },
 ];
 
 export default function About() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-
-  const imageScale = useTransform(scrollYProgress, [0, 0.3], [0.8, 1]);
-  const imageOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
-
-  const stats = [
-    { label: "Projects Completed", value: "10+" },
-    { label: "Coding Competitions Won", value: "2" },
-    { label: "Certifications", value: "3+" },
-    { label: "Technologies", value: "15+" },
-  ];
-
   return (
-    <section id="about" ref={ref} className="py-20 md:py-32 overflow-hidden">
+    <section id="about" className="py-20 md:py-32 overflow-hidden">
       <div className="container px-4 mx-auto">
         <SectionHeading
           title="About Me"
@@ -104,7 +73,6 @@ export default function About() {
 
           <div className="order-1 lg:order-2 flex justify-center">
             <motion.div
-              style={{ scale: imageScale, opacity: imageOpacity }}
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
@@ -114,9 +82,11 @@ export default function About() {
               <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-primary/20 to-primary/40 blur-2xl opacity-70 animate-pulse dark:opacity-90" />
               <div className="relative w-64 h-64 sm:w-72 sm:h-72 rounded-full overflow-hidden border-4 border-background shadow-xl dark:border-background/80">
                 <Image
-                  src="/ProfilePic.jpg"
-                  alt="Developer portrait"
+                  src="/rohit-pic.jpg"
+                  alt="Ghanathe Rohit — Full Stack Web Developer"
                   fill
+                  loading="lazy"
+                  sizes="(max-width: 640px) 256px, 288px"
                   className="object-cover hover:scale-105 transition-transform duration-300"
                 />
               </div>
@@ -169,54 +139,6 @@ export default function About() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </div>
-      <div className="mt-20 p-30 md:p-16 bg-background/50 rounded-lg shadow-lg backdrop-blur-sm border border-primary/10">
-        <h3 className="text-4xl font-bold text-center mb-10 ">Education</h3>
-        <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary/20" />
-
-          {education.map((edu, index) => (
-            <motion.div
-              key={edu.level}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              viewport={{ once: true }}
-              className={`flex items-center mb-12 ${
-                index % 2 === 0 ? "flex-row-reverse" : ""
-              }`}
-            >
-              {/* Timeline content */}
-              <div className={`w-1/2 ${index % 2 === 0 ? "pl-8" : "pr-8"}`}>
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  className="bg-background/50 p-6 rounded-lg shadow-lg backdrop-blur-sm border border-primary/10 hover:bg-primary/20 hover:border-primary transition-colors duration-300"
-                >
-                  <h4 className="text-lg font-semibold text-primary mb-2">
-                    {edu.level}
-                  </h4>
-                  <p className="font-medium">{edu.school}</p>
-                  <p className="text-sm text-muted-foreground">{edu.degree}</p>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    {edu.year}
-                  </p>
-                </motion.div>
-              </div>
-
-              {/* Timeline dot */}
-              <motion.div
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                transition={{ duration: 0.3, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                className="w-8 h-8 bg-primary/20 rounded-full animate-pulse flex items-center justify-center absolute md:left-[49%] left-[46%] transform -translate-x-1/2"
-              >
-                <div className="w-5 h-5 bg-primary rounded-full" />
-              </motion.div>
-            </motion.div>
-          ))}
         </div>
       </div>
     </section>

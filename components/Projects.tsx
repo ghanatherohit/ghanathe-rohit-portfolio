@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ProjectCard from "@/components/ui/ProjectCard";
@@ -18,6 +18,7 @@ const categories = [
 
 interface Project {
   id: number;
+  repoName: string;
   title: string;
   description: string;
   image: string;
@@ -103,7 +104,6 @@ export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [rateLimited, setRateLimited] = useState(false);
-  const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     async function fetchGitHubRepos() {
@@ -132,6 +132,7 @@ export default function Projects() {
         const allProjects: Project[] = (data.projects || []).map(
           (repo, index) => ({
             id: index + 1,
+            repoName: repo.name,
             title: repo.name
               .replace(/[-_]/g, " ")
               .replace(/\b\w/g, (c) => c.toUpperCase()),
@@ -166,7 +167,7 @@ export default function Projects() {
         );
 
   return (
-    <section id="projects" ref={ref} className="py-20 md:py-32">
+    <section id="projects" className="py-20 md:py-32">
       <motion.div className="container px-4 mx-auto max-w-6xl">
         {/* Header */}
         <SectionHeading

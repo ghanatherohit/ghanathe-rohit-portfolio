@@ -1,16 +1,23 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-    eslint: {
-      ignoreDuringBuilds: true,
-    },
-    typescript: {
-      ignoreBuildErrors: true,
-    },
-    images: {
-      unoptimized: true,
-    },
-  devIndicators: false
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "opengraph.githubassets.com",
+      },
+      {
+        protocol: "https",
+        hostname: "assets.leetcode.com",
+      },
+      {
+        protocol: "https",
+        hostname: "userpic.codeforces.org",
+      },
+    ],
+  },
+  devIndicators: false,
 };
 
 export default nextConfig;

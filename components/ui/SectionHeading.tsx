@@ -7,9 +7,10 @@ interface SectionHeadingProps {
   className?: string
 }
 
-export default function SectionHeading({ title, subtitle }: SectionHeadingProps) {
+export default function SectionHeading({ title, subtitle, className }: SectionHeadingProps) {
   return (
-    <div className="flex flex-col items-center justify-center space-y-2 mb-8">
+    <div className={`flex flex-col items-center justify-center space-y-2 mb-8 ${className ?? ""}`}>
+
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

@@ -4,8 +4,8 @@ import type React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useRef, useState } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, MapPin, Send, Check, X, AlertCircle } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -32,35 +32,30 @@ const schema = z.object({
     .string()
     .nonempty({ message: "Message is required" })
     .min(10, { message: "Message must be at least 10 characters long" })
-    .max(500, { message: "Message must be less than 500 characters" })
+    .max(500, { message: "Message must be less than 500 characters" }),
 });
 
+// Defined outside component to avoid recreating on every render
+const socialLinks = [
+  { name: "GitHub", icon: Github, href: "https://github.com/ghanatherohit" },
+  {
+    name: "LinkedIn",
+    icon: Linkedin,
+    href: "https://www.linkedin.com/in/ghanatherohit",
+  },
+  {
+    name: "Instagram",
+    icon: Instagram,
+    href: "https://www.instagram.com/therohitghanathe",
+  },
+];
+
 export default function Contact() {
-  const socialLinks = [
-    { name: "GitHub", icon: Github, href: "https://github.com/ghanatherohit" },
-    {
-      name: "LinkedIn",
-      icon: Linkedin,
-      href: "https://www.linkedin.com/in/ghanatherohit",
-    },
-    {
-      name: "Instagram",
-      icon: Instagram,
-      href: "https://www.instagram.com/therohitghanathe",
-    },
-  ];
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [showPopup, setShowPopup] = useState(false);
 
-  const ref = useRef<HTMLElement>(null);
-  const formRef = useRef<HTMLFormElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
   const {
     register,
     handleSubmit,
@@ -81,15 +76,12 @@ export default function Contact() {
     criteriaMode: "all",
   });
 
-  const y = useTransform(scrollYProgress, [0, 0.8], [50, 0]);
-
   return (
     <section
       id="contact"
-      ref={ref}
       className="py-16 md:py-20 bg-muted/50 dark:bg-muted/30"
     >
-      <motion.div style={{ y }} className="container px-6 mx-auto">
+      <div className="container px-6 mx-auto">
         <SectionHeading
           title="Get In Touch"
           subtitle="Let's discuss your project"
@@ -121,7 +113,6 @@ export default function Contact() {
                   <h4 className="text-sm font-medium text-muted-foreground">
                     Email
                   </h4>
-                  {/* Open mail with the email */}
                   <a
                     href="mailto:2004ghanatherohit@gmail.com"
                     target="_blank"
@@ -135,18 +126,6 @@ export default function Contact() {
                   </a>
                 </div>
               </div>
-
-              {/*<div className="flex items-center gap-4">
-                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Phone className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-medium text-muted-foreground">
-                    Phone
-                  </h4>
-                  <p className="text-base">+91 7xxxxxxxxx7</p>
-                </div>
-              </div>*/}
 
               <a
                 href="https://www.google.com/maps/place/Hyderabad,+Telangana/@17.385044,78.486671,10z/data=!3m1!4b1!4m6!3m5!1s0x3bcb935f8c8c8c8c:0x3bcb935f8c8c8c8c!8m2!3d17.385044!4d78.486671!16zL20vMDNnY2Zl"
@@ -199,9 +178,7 @@ export default function Contact() {
           >
             <div className="relative p-6 bg-background rounded-2xl shadow-lg border border-border dark:bg-background/50">
               <div className="absolute -inset-1.5 -z-10 rounded-2xl bg-gradient-to-r from-primary/20 to-primary/30 blur-xl opacity-50 dark:opacity-70" />
-              {/* Form submission section */}
               <form
-                ref={formRef}
                 className="space-y-6"
                 onSubmit={handleSubmit(async (data) => {
                   setIsSubmitting(true);
@@ -245,9 +222,6 @@ export default function Contact() {
                     </label>
                     <input
                       {...register("name")}
-                      ref={(e) => {
-                        register("name").ref(e);
-                      }}
                       type="text"
                       id="name"
                       name="name"
@@ -255,9 +229,9 @@ export default function Contact() {
                       placeholder="Your name"
                       className="bg-muted/50 dark:bg-muted/30 w-full rounded-md border border-input px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     />
-                    {errors && (
+                    {errors.name && (
                       <p className="text-red-500 text-sm">
-                        {errors.name?.message}
+                        {errors.name.message}
                       </p>
                     )}
                   </div>
@@ -276,9 +250,9 @@ export default function Contact() {
                       placeholder="Your email"
                       className="bg-muted/50 dark:bg-muted/30 w-full rounded-md border border-input px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     />
-                    {errors && (
+                    {errors.email && (
                       <p className="text-red-500 text-sm">
-                        {errors.email?.message}
+                        {errors.email.message}
                       </p>
                     )}
                   </div>
@@ -291,9 +265,6 @@ export default function Contact() {
                   </label>
                   <input
                     {...register("subject")}
-                    ref={(e) => {
-                      register("subject").ref(e);
-                    }}
                     type="text"
                     id="subject"
                     name="subject"
@@ -301,9 +272,9 @@ export default function Contact() {
                     placeholder="Project inquiry"
                     className="bg-muted/50 dark:bg-muted/30 w-full rounded-md border border-input px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                   />
-                  {errors && (
+                  {errors.subject && (
                     <p className="text-red-500 text-sm">
-                      {errors.subject?.message}
+                      {errors.subject.message}
                     </p>
                   )}
                 </div>
@@ -315,9 +286,6 @@ export default function Contact() {
                   </label>
                   <Textarea
                     {...register("message")}
-                    ref={(e) => {
-                      register("message").ref(e);
-                    }}
                     id="message"
                     name="message"
                     placeholder="Tell me about your project..."
@@ -325,9 +293,9 @@ export default function Contact() {
                     required
                     className="bg-muted/50 dark:bg-muted/30 w-full rounded-md border border-input px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                   />
-                  {errors && (
-                    <p className="text-red-500 text-sm ">
-                      {errors.message?.message}
+                  {errors.message && (
+                    <p className="text-red-500 text-sm">
+                      {errors.message.message}
                     </p>
                   )}
                 </div>
@@ -349,7 +317,7 @@ export default function Contact() {
                         </span>
                       ) : (
                         <span className="text-white">
-                          <Send className="h-5 w-5 text-whit inline-block mx-2" />
+                          <Send className="h-5 w-5 text-white inline-block mx-2" />
                           Send Message
                         </span>
                       )}
@@ -375,7 +343,7 @@ export default function Contact() {
             </div>
           </motion.div>
         </div>
-      </motion.div>
+      </div>
 
       {/* Success Popup Overlay */}
       <AnimatePresence>

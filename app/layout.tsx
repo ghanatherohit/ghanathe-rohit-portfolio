@@ -1,3 +1,4 @@
+import { SITE_URL, IS_PRODUCTION } from "@/lib/config";
 import type React from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -5,20 +6,15 @@ import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 
-const inter = Inter({ subsets: ["latin"] });
-
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-  "https://ghanathe-rohit-portfolio.vercel.app";
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap", // Prevents invisible text flash while font loads (FOIT)
+});
 
 const GOOGLE_SITE_VERIFICATION =
   process.env.GOOGLE_SITE_VERIFICATION ||
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ||
   "";
-
-const IS_PRODUCTION =
-  process.env.VERCEL_ENV === "production" ||
-  (!process.env.VERCEL_ENV && process.env.NODE_ENV === "production");
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
