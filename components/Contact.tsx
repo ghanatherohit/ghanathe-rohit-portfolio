@@ -114,14 +114,14 @@ export default function Contact() {
                     Email
                   </h4>
                   <a
-                    href="mailto:2004ghanatherohit@gmail.com"
+                    href="mailto:rohitghanathe09@gmail.com"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Email"
                     className="text-base"
                   >
                     <span className="text-base hover:text-primary transition-colors">
-                      2004ghanatherohit@gmail.com
+                      rohitghanathe09@gmail.com
                     </span>
                   </a>
                 </div>

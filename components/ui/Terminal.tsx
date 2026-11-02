@@ -141,7 +141,7 @@ export default function Terminal() {
         break;
       case "contact":
         print([
-          "Email : 2004ghanatherohit@gmail.com",
+          "Email : rohitghanathe09@gmail.com",
           "GitHub: github.com/ghanatherohit",
           "LinkedIn: linkedin.com/in/ghanatherohit",
         ]);
